@@ -17,3 +17,9 @@ const projects = [
 ["02","WEB DESIGN","Thaslim Kabeer","An author's website shaped by quiet typography and a book-first layout.","https://thaslimkabeer.netlify.app/"],
 ["03","HARDWARE PROTOTYPE","PREL-48","Plastic Redemption: Earth's Liberation - a working response to plastic waste.","https://www.youtube.com/watch?v=qmoXq_uKwno"],
 ] as const;
+const quotes=[
+["Friedrich Nietzsche","Whoever fights monsters should see to it that in the process he does not become a monster. And if you gaze long enough into an abyss, the abyss will gaze back into you."],
+["Marcus Aurelius","Everything we hear is an opinion, not a fact. Everything we see is a perspective, not the truth."],
+["Rumi - my deepest favourite","I searched for God and found only myself. I searched for myself and found only God."]
+] as const;
+const books=["Ahlam","Animal Farm","1984","Meditations","Mastery","48 Laws of Power","Wings of Fire","Read People Like a Book","What Every Body Is Saying","Ikigai","Psychology of Money","Thajasiyaya Vhami","New World Order"];
