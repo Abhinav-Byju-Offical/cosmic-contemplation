@@ -26,3 +26,34 @@ const interests = ["Researching random topics", "Existentialism × Nihilism", "L
 function SectionHead({ number, kanji, title }: { number: string; kanji: string; title: string }) {
   return <header className="section-head"><span>{number}</span><div><p>{kanji}</p><h2>{title}</h2></div></header>;
 }
+
+export function CosmicPortfolio() {
+  const [activeBook, setActiveBook] = useState(0);
+  const helmetRef = useRef<HTMLImageElement>(null);
+  useEffect(() => {
+    const move = (event: MouseEvent) => {
+      if (!helmetRef.current) return;
+      const x = (event.clientX / window.innerWidth - 0.5) * 12;
+      const y = (event.clientY / window.innerHeight - 0.5) * -8;
+      helmetRef.current.style.transform = `translate3d(${x}px,${y}px,0) rotateY(${x / 2}deg) rotateX(${y / 2}deg)`;
+    };
+    window.addEventListener("mousemove", move);
+    return () => window.removeEventListener("mousemove", move);
+  }, []);
+
+  return <main className="cosmos">
+    <nav className="cosmic-nav"><a href="#top" className="sigil">悟真<span>48</span></a><div><a href="#work">Work</a><a href="#library">Library</a><a href="#interests">Mind</a></div></nav>
+    <section id="top" className="hero" style={{ backgroundImage: `url(${heroAsset.url})` }}>
+      <div className="hero-shade" /><p className="hero-kicker">序 · PROLOGUE</p>
+      <p className="hero-thesis">Between the measurable and the mysterious,<br />I keep looking.</p>
+      <h1><span>ABHINAV</span><span>BYJU</span></h1>
+      <img ref={helmetRef} className="hero-helmet" src={helmetAsset.url} alt="Faceless astronaut helmet with violet smoke" />
+      <div className="hero-role"><span>RESEARCHER</span><span>WEB DESIGNER</span><span>QUANTUM & DIY</span></div>
+      <p className="coordinates">09.9312 N · 76.2673 E · KERALA</p>
+      <a className="explore" href="#inquiry">Explore <ArrowDown size={16}/></a>
+      <div className="marquee"><div>HELLO, I AM ABHINAV BYJU · HELLO, I AM ABHINAV BYJU · HELLO, I AM ABHINAV BYJU ·</div></div>
+    </section>
+
+    <section id="inquiry" className="chapter inquiry"><SectionHead number="01" kanji="探究" title="Six directions I keep walking down, mostly at night." />
+      <div className="inquiry-grid">{inquiries.map(([Icon,title,copy],i)=><article className="inquiry-card" key={title}><span>0{i+1}</span><Icon/><h3>{title}</h3><p>{copy}</p></article>)}</div>
+    </section>
