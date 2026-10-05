@@ -54,6 +54,14 @@ export function CosmicPortfolio() {
       <div className="marquee"><div>HELLO, I AM ABHINAV BYJU · HELLO, I AM ABHINAV BYJU · HELLO, I AM ABHINAV BYJU ·</div></div>
     </section>
 
+    <section className="chapter words"><SectionHead number="03" kanji="言葉" title="Words that keep rearranging me." />
+      <div className="quotes">
+        <blockquote><i>“</i><p>Whoever fights monsters should see to it that in the process he does not become a monster. And if you gaze long enough into an abyss, the abyss will gaze back into you.</p><cite>Friedrich Nietzsche</cite></blockquote>
+        <blockquote><i>“</i><p>Everything we hear is an opinion, not a fact. Everything we see is a perspective, not the truth.</p><cite>Marcus Aurelius</cite></blockquote>
+        <blockquote className="luminous"><i>“</i><p>I searched for God and found only myself. I searched for myself and found only God.</p><cite>Rumi · my deepest favourite</cite></blockquote>
+      </div>
+    </section>
+
     <section id="inquiry" className="chapter inquiry"><SectionHead number="01" kanji="探究" title="Six directions I keep walking down, mostly at night." />
       <div className="inquiry-grid">{inquiries.map(([Icon,title,copy],i)=><article className="inquiry-card" key={title}><span>0{i+1}</span><Icon/><h3>{title}</h3><p>{copy}</p></article>)}</div>
     </section>
