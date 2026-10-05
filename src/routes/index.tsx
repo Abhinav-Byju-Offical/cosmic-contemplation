@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { CosmicPortfolio } from "@/components/CosmicPortfolio";
 
 export const Route = createFileRoute("/")({
+  ssr: false,
   head: () => ({ meta: [
     { title: "Abhinav Byju — Researcher, Designer & Maker" },
     { name: "description", content: "The cosmic portfolio of Abhinav Byju — exploring quantum physics, design, consciousness and things built by hand." },
