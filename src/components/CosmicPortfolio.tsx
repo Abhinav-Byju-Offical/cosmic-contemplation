@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { ArrowDown, ArrowUpRight, Atom, BookOpen, Brain, CircuitBoard, Globe2, Network } from "lucide-react";
 import heroAsset from "@/assets/cosmic-astronaut.jpg.asset.json";
 import helmetAsset from "@/assets/helmet-smoke.png.asset.json";
@@ -54,14 +54,6 @@ export function CosmicPortfolio() {
       <div className="marquee"><div>HELLO, I AM ABHINAV BYJU · HELLO, I AM ABHINAV BYJU · HELLO, I AM ABHINAV BYJU ·</div></div>
     </section>
 
-    <section className="chapter words"><SectionHead number="03" kanji="言葉" title="Words that keep rearranging me." />
-      <div className="quotes">
-        <blockquote><i>“</i><p>Whoever fights monsters should see to it that in the process he does not become a monster. And if you gaze long enough into an abyss, the abyss will gaze back into you.</p><cite>Friedrich Nietzsche</cite></blockquote>
-        <blockquote><i>“</i><p>Everything we hear is an opinion, not a fact. Everything we see is a perspective, not the truth.</p><cite>Marcus Aurelius</cite></blockquote>
-        <blockquote className="luminous"><i>“</i><p>I searched for God and found only myself. I searched for myself and found only God.</p><cite>Rumi · my deepest favourite</cite></blockquote>
-      </div>
-    </section>
-
     <section id="inquiry" className="chapter inquiry"><SectionHead number="01" kanji="探究" title="Six directions I keep walking down, mostly at night." />
       <div className="inquiry-grid">{inquiries.map(([Icon,title,copy],i)=><article className="inquiry-card" key={title}><span>0{i+1}</span><Icon/><h3>{title}</h3><p>{copy}</p></article>)}</div>
     </section>
@@ -71,9 +63,18 @@ export function CosmicPortfolio() {
       <div className="achievement"><div><strong>1<span>st</span></strong><b>ILLUM 24</b></div><div><p>NATIONAL FINALIST · ALL INDIA</p><h3>Turning a raw idea into a working answer for a real community problem.</h3><small>Team POWEROFGALAXY48 · Crescent Public School · PREL–48</small><a href="https://leap21stcentury.org/contest" target="_blank" rel="noreferrer">About the contest <ArrowUpRight size={15}/></a></div></div>
     </section>
 
+    <section className="chapter words"><SectionHead number="03" kanji="言葉" title="Words that keep rearranging me." />
+      <div className="quotes">
+        <blockquote><i>“</i><p>Whoever fights monsters should see to it that in the process he does not become a monster. And if you gaze long enough into an abyss, the abyss will gaze back into you.</p><cite>Friedrich Nietzsche</cite></blockquote>
+        <blockquote><i>“</i><p>Everything we hear is an opinion, not a fact. Everything we see is a perspective, not the truth.</p><cite>Marcus Aurelius</cite></blockquote>
+        <blockquote className="luminous"><i>“</i><p>I searched for God and found only myself. I searched for myself and found only God.</p><cite>Rumi · my deepest favourite</cite></blockquote>
+      </div>
+    </section>
+
+
     <section id="library" className="library" style={{backgroundImage:`url(${libraryImage})`}}><div className="library-shade"/><div className="library-content"><SectionHead number="04" kanji="書架" title="Books I've read, and books that are waiting." /><p className="library-note"><BookOpen size={16}/> Move your cursor along the shelves</p><div className="book-shelf">{books.map((book,i)=><button type="button" key={book} aria-label={`Reveal ${book}`} onMouseEnter={()=>setActiveBook(i)} onFocus={()=>setActiveBook(i)} className={activeBook===i?"active":""}><span>{book}</span></button>)}</div><div className="book-caption"><span>{String(activeBook+1).padStart(2,"0")} / 13</span><h3>{books[activeBook]}</h3><p>{activeBook===0?"Thaslim Kabeer · Must read":activeBook===1?"George Orwell · Favourite":"A volume in the constellation"}</p><a href="https://play.google.com/store/books/details/Thaslim_Kabeer_Ahlam?id=2mPHEQAAQBAJ" target="_blank" rel="noreferrer">Start with Ahlam <ArrowUpRight size={15}/></a></div></div></section>
 
-    <section id="interests" className="chapter interests"><SectionHead number="05" kanji="興味" title="What the mind circles when it's free." /><div className="orbit-stage"><img src={orbitImage} loading="lazy" width={1536} height={864} alt="Dark sphere with golden and violet orbital paths"/><div className="orbit-center">ORBITING<br/>THE MIND</div>{interests.map((interest,i)=><span style={{"--i":i} as React.CSSProperties} key={interest}>{interest}</span>)}</div></section>
+    <section id="interests" className="chapter interests"><SectionHead number="05" kanji="興味" title="What the mind circles when it's free." /><div className="orbit-stage"><img src={orbitImage} loading="lazy" width={1536} height={864} alt="Dark sphere with golden and violet orbital paths"/><div className="orbit-center">ORBITING<br/>THE MIND</div>{interests.map((interest,i)=><span style={{"--i":i} as CSSProperties} key={interest}>{interest}</span>)}</div></section>
 
     <footer style={{backgroundImage:`url(${heroAsset.url})`}}><div><p>“I searched for myself<br/>and found only God.”</p><small>RUMI</small></div><div className="footer-strip">幽玄 · ABHINAV BYJU · KERALA, INDIA · 悟真</div></footer>
   </main>;
