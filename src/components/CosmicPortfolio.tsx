@@ -2,8 +2,6 @@ import { useEffect, useState, type CSSProperties } from "react";
 import { ArrowDown, ArrowUpRight, BookOpen, Menu, X } from "lucide-react";
 import { CinematicCore } from "@/components/CinematicCore";
 import heroAsset from "@/assets/cosmic-astronaut.jpg.asset.json";
-import libraryImage from "@/assets/cosmic-library.jpg";
-import orbitImage from "@/assets/orbit-sphere.jpg";
 
 const inquiries = [
 ["01","Quantum Physics","Where measurement quietly breaks intuition."],
@@ -69,8 +67,14 @@ export function CosmicPortfolio(){
   </section>
   <section className="words-scene"><div data-reveal><ChapterTitle number="03" label="WORDS" title="THOUGHTS THAT STAY."/></div><div className="quote-track">{quotes.map(([author,quote],i)=><blockquote key={author} className={i===2?"active":""} data-reveal style={{"--delay":`${i*90}ms`} as CSSProperties}><span>0{i+1}</span><p>{quote}</p><cite>{author}</cite></blockquote>)}</div></section>
 
-  <section id="library" className="library-scene" style={{backgroundImage:`url(${libraryImage})`}}><div className="library-cover"/><div data-reveal><ChapterTitle number="04" label="LIBRARY" title="THIRTEEN DOORS."/></div><p className="book-instruction" data-reveal><BookOpen/> Choose a spine</p><div className="books" data-reveal>{books.map((book,i)=><button key={book} className={activeBook===i?"active":""} onMouseEnter={()=>setActiveBook(i)} onFocus={()=>setActiveBook(i)}><span>{String(i+1).padStart(2,"0")}</span><b>{book}</b></button>)}</div><div className="book-readout" data-reveal><span>{String(activeBook+1).padStart(2,"0")} / 13</span><h3>{books[activeBook]}</h3><p>{activeBook===0?"Thaslim Kabeer / Must read":activeBook===1?"George Orwell / Favourite":"A volume in the constellation"}</p></div></section>
-  <section id="mind" className="mind-scene"><div data-reveal><ChapterTitle number="05" label="MIND" title="SIX THINGS IN ORBIT."/></div><div className="orbit" style={{backgroundImage:`url(${orbitImage})`}} data-reveal><div className="orbit-word">MIND</div>{interests.map((item,i)=><span key={item} style={{"--i":i} as CSSProperties}>{item}</span>)}</div></section>
+  <section id="library" className="library-scene"><div className="archive-lines" aria-hidden="true"><i/><i/><i/><i/></div><div data-reveal><ChapterTitle number="04" label="LIBRARY" title="THIRTEEN DOORS."/></div><div className="archive-index"><span>PRIVATE ARCHIVE</span><span>VOL. 01—13</span><span>KERALA / 2026</span></div><p className="book-instruction" data-reveal><BookOpen/> Choose a spine</p><div className="books" data-reveal>{books.map((book,i)=><button key={book} className={activeBook===i?"active":""} onMouseEnter={()=>setActiveBook(i)} onFocus={()=>setActiveBook(i)} aria-label={`Select ${book}`}><span>{String(i+1).padStart(2,"0")}</span><b>{book}</b><i/></button>)}</div><div className="book-readout" data-reveal><span>{String(activeBook+1).padStart(2,"0")} / 13</span><h3>{books[activeBook]}</h3><p>{activeBook===0?"Thaslim Kabeer / Must read":activeBook===1?"George Orwell / Favourite":"A volume in the constellation"}</p></div></section>
+  <section id="mind" className="mind-scene"><div data-reveal><ChapterTitle number="05" label="MIND" title="SIX SIGNALS, ONE CORE."/></div><div className="thought-machine" data-reveal>
+   <div className="machine-axis" aria-hidden="true"><i/><i/></div>
+   <div className="machine-core" aria-hidden="true"><span>AB</span><small>SUBJECT / 48</small></div>
+   <div className="machine-rings" aria-hidden="true"><i/><i/><i/></div>
+   <div className="thought-signals">{interests.map((item,i)=><div key={item} style={{"--i":i} as CSSProperties}><span>{String(i+1).padStart(2,"0")}</span><p>{item}</p><i aria-hidden="true"/></div>)}</div>
+   <p className="machine-caption">OBSERVATION → DOUBT → PATTERN → MAKING</p>
+  </div></section>
   <footer className="finale"><p data-reveal>EVERY SEARCH<br/>CHANGES THE<br/><em>SEARCHER.</em></p><div><span>ABHINAV BYJU</span><span>KERALA / INDIA</span><a href="#top">BACK TO TOP <ArrowUpRight/></a></div></footer>
  </main>;
 }
