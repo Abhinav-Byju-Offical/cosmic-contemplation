@@ -1,7 +1,6 @@
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useState, type CSSProperties } from "react";
 import { ArrowDown, ArrowUpRight, Atom, BookOpen, Brain, CircuitBoard, Globe2, Network } from "lucide-react";
 import heroAsset from "@/assets/cosmic-astronaut.jpg.asset.json";
-import helmetAsset from "@/assets/helmet-smoke.png.asset.json";
 import libraryImage from "@/assets/cosmic-library.jpg";
 import orbitImage from "@/assets/orbit-sphere.jpg";
 
@@ -29,17 +28,6 @@ function SectionHead({ number, kanji, title }: { number: string; kanji: string; 
 
 export function CosmicPortfolio() {
   const [activeBook, setActiveBook] = useState(0);
-  const helmetRef = useRef<HTMLImageElement>(null);
-  useEffect(() => {
-    const move = (event: MouseEvent) => {
-      if (!helmetRef.current) return;
-      const x = (event.clientX / window.innerWidth - 0.5) * 12;
-      const y = (event.clientY / window.innerHeight - 0.5) * -8;
-      helmetRef.current.style.transform = `translate3d(${x}px,${y}px,0) rotateY(${x / 2}deg) rotateX(${y / 2}deg)`;
-    };
-    window.addEventListener("mousemove", move);
-    return () => window.removeEventListener("mousemove", move);
-  }, []);
 
   return <main className="cosmos">
     <nav className="cosmic-nav"><a href="#top" className="sigil">悟真<span>48</span></a><div><a href="#work">Work</a><a href="#library">Library</a><a href="#interests">Mind</a></div></nav>
@@ -47,7 +35,6 @@ export function CosmicPortfolio() {
       <div className="hero-shade" /><p className="hero-kicker">序 · PROLOGUE</p>
       <p className="hero-thesis">Between the measurable and the mysterious,<br />I keep looking.</p>
       <h1><span>ABHINAV</span><span>BYJU</span></h1>
-      <img ref={helmetRef} className="hero-helmet" src={helmetAsset.url} alt="Faceless astronaut helmet with violet smoke" />
       <div className="hero-role"><span>RESEARCHER</span><span>WEB DESIGNER</span><span>QUANTUM & DIY</span></div>
       <p className="coordinates">09.9312 N · 76.2673 E · KERALA</p>
       <a className="explore" href="#inquiry">Explore <ArrowDown size={16}/></a>
