@@ -57,3 +57,8 @@ export function CosmicPortfolio() {
     <section id="inquiry" className="chapter inquiry"><SectionHead number="01" kanji="探究" title="Six directions I keep walking down, mostly at night." />
       <div className="inquiry-grid">{inquiries.map(([Icon,title,copy],i)=><article className="inquiry-card" key={title}><span>0{i+1}</span><Icon/><h3>{title}</h3><p>{copy}</p></article>)}</div>
     </section>
+
+    <section id="work" className="chapter work"><SectionHead number="02" kanji="制作" title="Websites and one prototype for the planet." />
+      <div className="project-grid">{projects.map(([type,title,copy,href],i)=><a href={href} target="_blank" rel="noreferrer" className="project" key={title}><span>{type}</span><div className="project-index">0{i+1}</div><h3>{title}</h3><p>{copy}</p><b>Visit <ArrowUpRight size={16}/></b></a>)}</div>
+      <div className="achievement"><div><strong>1<span>st</span></strong><b>ILLUM 24</b></div><div><p>NATIONAL FINALIST · ALL INDIA</p><h3>Turning a raw idea into a working answer for a real community problem.</h3><small>Team POWEROFGALAXY48 · Crescent Public School · PREL–48</small><a href="https://leap21stcentury.org/contest" target="_blank" rel="noreferrer">About the contest <ArrowUpRight size={15}/></a></div></div>
+    </section>
