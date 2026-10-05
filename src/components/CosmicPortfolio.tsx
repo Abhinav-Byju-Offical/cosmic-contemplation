@@ -1,5 +1,6 @@
 import { useEffect, useState, type CSSProperties } from "react";
 import { ArrowDown, ArrowUpRight, BookOpen, Menu, X } from "lucide-react";
+import { CinematicCore } from "@/components/CinematicCore";
 import heroAsset from "@/assets/cosmic-astronaut.jpg.asset.json";
 import libraryImage from "@/assets/cosmic-library.jpg";
 import orbitImage from "@/assets/orbit-sphere.jpg";
@@ -33,12 +34,21 @@ export function CosmicPortfolio(){
  const [activeBook,setActiveBook]=useState(0);
  const [menuOpen,setMenuOpen]=useState(false);
  const [entered,setEntered]=useState(false);
- useEffect(()=>{const timer=window.setTimeout(()=>setEntered(true),150);return()=>window.clearTimeout(timer)},[]);
+ useEffect(()=>{
+  const timer=window.setTimeout(()=>setEntered(true),150);
+  const root=document.documentElement;
+  const updateScroll=()=>{const max=root.scrollHeight-window.innerHeight;root.style.setProperty("--scroll-progress",String(max>0?window.scrollY/max:0));root.style.setProperty("--page-scroll",`${window.scrollY}px`)};
+  const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting)entry.target.classList.add("is-visible")}),{threshold:.14,rootMargin:"0px 0px -8%"});
+  document.querySelectorAll("[data-reveal]").forEach(element=>observer.observe(element));
+  updateScroll();window.addEventListener("scroll",updateScroll,{passive:true});
+  return()=>{window.clearTimeout(timer);window.removeEventListener("scroll",updateScroll);observer.disconnect()}
+ },[]);
  return <main className={`portfolio ${entered?"is-ready":""}`}>
+  <div className="journey-progress" aria-hidden="true"><i/></div>
   <nav className="main-nav"><a href="#top" className="brand">AB/48</a><p>Independent researcher<br/>and digital maker</p><div className={menuOpen?"nav-links open":"nav-links"}><a href="#work" onClick={()=>setMenuOpen(false)}>Work</a><a href="#library" onClick={()=>setMenuOpen(false)}>Library</a><a href="#mind" onClick={()=>setMenuOpen(false)}>Mind</a></div><button className="menu-button" onClick={()=>setMenuOpen(v=>!v)} aria-label="Toggle menu">{menuOpen?<X/>:<Menu/>}</button></nav>
 
   <section id="top" className="red-hero">
-   <div className="dot-grid"/><div className="hero-meta"><span>Kerala, India</span><span>Portfolio / 2026</span></div>
+   <div className="dot-grid"/><CinematicCore/><div className="hero-meta"><span>Kerala, India</span><span>Portfolio / 2026</span></div>
    <h1><span>ABHINAV</span><span>BYJU</span></h1>
    <p className="hero-copy">Researching the measurable.<br/><em>Building for the mysterious.</em></p>
    <a className="hero-cta" href="#prologue"><span>Enter the experience</span><ArrowDown/></a>
@@ -46,21 +56,21 @@ export function CosmicPortfolio(){
   </section>
 
   <section id="prologue" className="astronaut-scene" style={{backgroundImage:`url(${heroAsset.url})`}}>
-   <div className="scene-shade"/><p className="vertical-note">RESEARCHER / DESIGNER / MAKER</p><div className="scene-number">序</div>
-   <div className="scene-statement"><span>BETWEEN THE</span><strong>MEASURABLE</strong><span>AND THE</span><strong>MYSTERIOUS.</strong></div>
+   <div className="scene-shade"/><div className="scene-light"/><p className="vertical-note">RESEARCHER / DESIGNER / MAKER</p><div className="scene-number" data-reveal>序</div>
+   <div className="scene-statement" data-reveal><span>BETWEEN THE</span><strong>MEASURABLE</strong><span>AND THE</span><strong>MYSTERIOUS.</strong></div>
    <p className="coordinates">09.9312 N / 76.2673 E</p>
   </section>
 
-  <section id="inquiry" className="inquiry-scene"><ChapterTitle number="01" label="INQUIRY" title="I KEEP LOOKING."/><div className="inquiry-list">{inquiries.map(([n,title,copy])=><article key={title}><span>{n}</span><h3>{title}</h3><p>{copy}</p></article>)}</div></section>
+  <section id="inquiry" className="inquiry-scene"><div data-reveal><ChapterTitle number="01" label="INQUIRY" title="I KEEP LOOKING."/></div><div className="inquiry-list">{inquiries.map(([n,title,copy],i)=><article key={title} data-reveal style={{"--delay":`${i*55}ms`} as CSSProperties}><span>{n}</span><h3>{title}</h3><p>{copy}</p></article>)}</div></section>
 
-  <section id="work" className="work-scene"><ChapterTitle number="02" label="SELECTED WORK" title="MADE TO MOVE IDEAS."/>
-   <div className="projects">{projects.map(([n,type,title,copy,href])=><a key={title} href={href} target="_blank" rel="noreferrer"><span className="project-no">{n}</span><div><small>{type}</small><h3>{title}</h3><p>{copy}</p></div><ArrowUpRight/></a>)}</div>
-   <div className="award"><span className="award-number">01</span><div><p>National finalist / ILLUM 24</p><h3>A raw idea became a working answer for a real community problem.</h3><small>TEAM POWEROFGALAXY48 / CRESCENT PUBLIC SCHOOL</small></div></div>
+  <section id="work" className="work-scene"><div data-reveal><ChapterTitle number="02" label="SELECTED WORK" title="MADE TO MOVE IDEAS."/></div>
+   <div className="projects">{projects.map(([n,type,title,copy,href],i)=><a key={title} href={href} target="_blank" rel="noreferrer" data-reveal style={{"--delay":`${i*80}ms`} as CSSProperties}><span className="project-no">{n}</span><div><small>{type}</small><h3>{title}</h3><p>{copy}</p></div><ArrowUpRight/></a>)}</div>
+   <div className="award" data-reveal><span className="award-number">01</span><div><p>National finalist / ILLUM 24</p><h3>A raw idea became a working answer for a real community problem.</h3><small>TEAM POWEROFGALAXY48 / CRESCENT PUBLIC SCHOOL</small></div></div>
   </section>
-  <section className="words-scene"><ChapterTitle number="03" label="WORDS" title="THOUGHTS THAT STAY."/><div className="quote-track">{quotes.map(([author,quote],i)=><blockquote key={author} className={i===2?"active":""}><span>0{i+1}</span><p>{quote}</p><cite>{author}</cite></blockquote>)}</div></section>
+  <section className="words-scene"><div data-reveal><ChapterTitle number="03" label="WORDS" title="THOUGHTS THAT STAY."/></div><div className="quote-track">{quotes.map(([author,quote],i)=><blockquote key={author} className={i===2?"active":""} data-reveal style={{"--delay":`${i*90}ms`} as CSSProperties}><span>0{i+1}</span><p>{quote}</p><cite>{author}</cite></blockquote>)}</div></section>
 
-  <section id="library" className="library-scene" style={{backgroundImage:`url(${libraryImage})`}}><div className="library-cover"/><ChapterTitle number="04" label="LIBRARY" title="THIRTEEN DOORS."/><p className="book-instruction"><BookOpen/> Choose a spine</p><div className="books">{books.map((book,i)=><button key={book} className={activeBook===i?"active":""} onMouseEnter={()=>setActiveBook(i)} onFocus={()=>setActiveBook(i)}><span>{String(i+1).padStart(2,"0")}</span><b>{book}</b></button>)}</div><div className="book-readout"><span>{String(activeBook+1).padStart(2,"0")} / 13</span><h3>{books[activeBook]}</h3><p>{activeBook===0?"Thaslim Kabeer / Must read":activeBook===1?"George Orwell / Favourite":"A volume in the constellation"}</p></div></section>
-  <section id="mind" className="mind-scene"><ChapterTitle number="05" label="MIND" title="SIX THINGS IN ORBIT."/><div className="orbit" style={{backgroundImage:`url(${orbitImage})`}}><div className="orbit-word">MIND</div>{interests.map((item,i)=><span key={item} style={{"--i":i} as CSSProperties}>{item}</span>)}</div></section>
-  <footer className="finale"><p>EVERY SEARCH<br/>CHANGES THE<br/><em>SEARCHER.</em></p><div><span>ABHINAV BYJU</span><span>KERALA / INDIA</span><a href="#top">BACK TO TOP <ArrowUpRight/></a></div></footer>
+  <section id="library" className="library-scene" style={{backgroundImage:`url(${libraryImage})`}}><div className="library-cover"/><div data-reveal><ChapterTitle number="04" label="LIBRARY" title="THIRTEEN DOORS."/></div><p className="book-instruction" data-reveal><BookOpen/> Choose a spine</p><div className="books" data-reveal>{books.map((book,i)=><button key={book} className={activeBook===i?"active":""} onMouseEnter={()=>setActiveBook(i)} onFocus={()=>setActiveBook(i)}><span>{String(i+1).padStart(2,"0")}</span><b>{book}</b></button>)}</div><div className="book-readout" data-reveal><span>{String(activeBook+1).padStart(2,"0")} / 13</span><h3>{books[activeBook]}</h3><p>{activeBook===0?"Thaslim Kabeer / Must read":activeBook===1?"George Orwell / Favourite":"A volume in the constellation"}</p></div></section>
+  <section id="mind" className="mind-scene"><div data-reveal><ChapterTitle number="05" label="MIND" title="SIX THINGS IN ORBIT."/></div><div className="orbit" style={{backgroundImage:`url(${orbitImage})`}} data-reveal><div className="orbit-word">MIND</div>{interests.map((item,i)=><span key={item} style={{"--i":i} as CSSProperties}>{item}</span>)}</div></section>
+  <footer className="finale"><p data-reveal>EVERY SEARCH<br/>CHANGES THE<br/><em>SEARCHER.</em></p><div><span>ABHINAV BYJU</span><span>KERALA / INDIA</span><a href="#top">BACK TO TOP <ArrowUpRight/></a></div></footer>
  </main>;
 }

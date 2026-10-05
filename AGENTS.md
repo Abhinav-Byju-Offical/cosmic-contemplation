@@ -10,3 +10,4 @@
 <!-- LOVABLE:END -->
 
 - Keep the portfolio as a single cinematic scrolling route because its narrative depends on continuous chapter-to-chapter motion.
+- Keep immersive 3D as a procedural, client-rendered visual layer so the portfolio stays asset-independent and SSR-safe.
