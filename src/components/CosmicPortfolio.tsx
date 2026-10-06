@@ -1,5 +1,5 @@
 import { useEffect, useState, type CSSProperties } from "react";
-import { ArrowDown, ArrowUpRight, BookOpen, Menu, X } from "lucide-react";
+import { ArrowDown, ArrowUpRight, BookOpen, Menu, Trophy, X } from "lucide-react";
 import { CinematicCore } from "@/components/CinematicCore";
 import heroAsset from "@/assets/cosmic-astronaut.jpg.asset.json";
 
