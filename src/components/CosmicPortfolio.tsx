@@ -32,7 +32,19 @@ export function CosmicPortfolio(){
  const [activeBook,setActiveBook]=useState(0);
  const [menuOpen,setMenuOpen]=useState(false);
  const [entered,setEntered]=useState(false);
+ const [count,setCount]=useState(0);
+ const [loaded,setLoaded]=useState(false);
  useEffect(()=>{
+  let n=0;const tick=window.setInterval(()=>{n=Math.min(100,n+Math.ceil(Math.random()*9));setCount(n);if(n>=100){window.clearInterval(tick);window.setTimeout(()=>setLoaded(true),350)}},45);
+  const cursor=document.querySelector<HTMLElement>(".cursor");const dot=document.querySelector<HTMLElement>(".cursor-dot");
+  let cx=0,cy=0,tx=0,ty=0,raf=0,lastY=window scrollY,skew=0;
+  const move=(e:PointerEvent)=>{tx=e.clientX;ty=e.clientY;if(dot)dot.style.transform=`translate(${tx}px,${ty}px)`;const t=e.target as HTMLElement;cursor?.classList.toggle("is-hover",!!t.closest("a,button"))};
+  const loop=()=>{cx+=(tx-cx)*.14;cy+=(ty-cy)*.14;if(cursor)cursor.style.transform=`translate(${cx}px,${cy}px)`;const y=window.scrollY;skew+=(Math.max(-8,Math.min(8,(y-lastY)*.25))-skew)*.12;lastY=y;document.documentElement.style.setProperty("--skew",`${skew.toFixed(2)}deg`);raf=requestAnimationFrame(loop)};
+  window.addEventListener("pointermove",move,{passive:true});raf=requestAnimationFrame(loop);
+  return()=>{window.clearInterval(tick);window.removeEventListener("pointermove",move);cancelAnimationFrame(raf)}
+ },[]);
+ useEffect(()=>{
+  if(!loaded)return;
   const timer=window.setTimeout(()=>setEntered(true),150);
   const root=document.documentElement;
   const updateScroll=()=>{const max=root.scrollHeight-window.innerHeight;root.style.setProperty("--scroll-progress",String(max>0?window.scrollY/max:0));root.style.setProperty("--page-scroll",`${window.scrollY}px`)};
@@ -40,18 +52,23 @@ export function CosmicPortfolio(){
   document.querySelectorAll("[data-reveal]").forEach(element=>observer.observe(element));
   updateScroll();window.addEventListener("scroll",updateScroll,{passive:true});
   return()=>{window.clearTimeout(timer);window.removeEventListener("scroll",updateScroll);observer.disconnect()}
- },[]);
+ },[loaded]);
+ const letters=(word:string,offset:number)=>word.split("").map((c,i)=><b key={i} style={{"--d":`${(offset+i)*55}ms`} as CSSProperties}>{c}</b>);
+ const Marquee=({text,alt}:{text:string;alt?:boolean})=><div className={alt?"marquee alt":"marquee"} aria-hidden="true"><div>{Array.from({length:6},(_,i)=><span key={i}>{text} <em>✦</em> </span>)}</div></div>;
  return <main className={`portfolio ${entered?"is-ready":""}`}>
+  <div className={loaded?"preloader done":"preloader"} aria-hidden="true"><span className="pre-label">悟真 / Loading the journey</span><strong>{String(count).padStart(3,"0")}</strong><i style={{transform:`scaleX(${count/100})`}}/></div>
+  <div className="cursor" aria-hidden="true"/><div className="cursor-dot" aria-hidden="true"/>
   <div className="journey-progress" aria-hidden="true"><i/></div>
   <nav className="main-nav"><a href="#top" className="brand">AB/48</a><p>Independent researcher<br/>and digital maker</p><div className={menuOpen?"nav-links open":"nav-links"}><a href="#work" onClick={()=>setMenuOpen(false)}>Work</a><a href="#library" onClick={()=>setMenuOpen(false)}>Library</a><a href="#mind" onClick={()=>setMenuOpen(false)}>Mind</a></div><button className="menu-button" onClick={()=>setMenuOpen(v=>!v)} aria-label="Toggle menu">{menuOpen?<X/>:<Menu/>}</button></nav>
 
   <section id="top" className="red-hero">
    <div className="dot-grid"/><CinematicCore/><div className="hero-meta"><span>Kerala, India</span><span>Portfolio / 2026</span></div>
-   <h1><span>ABHINAV</span><span>BYJU</span></h1>
+   <h1 aria-label="Abhinav Byju"><span>{letters("ABHINAV",0)}</span><span>{letters("BYJU",4)}</span></h1>
    <p className="hero-copy">Researching the measurable.<br/><em>Building for the mysterious.</em></p>
    <a className="hero-cta" href="#prologue"><span>Enter the experience</span><ArrowDown/></a>
    <div className="scroll-mark"><i/><span>Scroll to begin</span><i/></div>
   </section>
+  <Marquee text="RESEARCHER — WEB DESIGNER — MAKER — READER"/>
 
   <section id="prologue" className="astronaut-scene" style={{backgroundImage:`url(${heroAsset.url})`}}>
    <div className="scene-shade"/><div className="scene-light"/><p className="vertical-note">RESEARCHER / DESIGNER / MAKER</p><div className="scene-number" data-reveal>序</div>
@@ -60,6 +77,7 @@ export function CosmicPortfolio(){
   </section>
 
   <section id="inquiry" className="inquiry-scene"><div data-reveal><ChapterTitle number="01" label="INQUIRY" title="I KEEP LOOKING."/></div><div className="inquiry-list">{inquiries.map(([n,title,copy],i)=><article key={title} data-reveal style={{"--delay":`${i*55}ms`} as CSSProperties}><span>{n}</span><h3>{title}</h3><p>{copy}</p></article>)}</div></section>
+  <Marquee text="SELECTED WORK — MADE TO MOVE IDEAS" alt/>
 
   <section id="work" className="work-scene"><div data-reveal><ChapterTitle number="02" label="SELECTED WORK" title="MADE TO MOVE IDEAS."/></div>
    <div className="projects">{projects.map(([n,type,title,copy,href],i)=><a key={title} href={href} target="_blank" rel="noreferrer" data-reveal style={{"--delay":`${i*80}ms`} as CSSProperties}><span className="project-no">{n}</span><div><small>{type}</small><h3>{title}</h3><p>{copy}</p></div><ArrowUpRight/></a>)}</div>
