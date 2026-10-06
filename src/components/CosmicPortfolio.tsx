@@ -1,5 +1,5 @@
 import { useEffect, useState, type CSSProperties } from "react";
-import { ArrowDown, ArrowUpRight, BookOpen, Menu, X } from "lucide-react";
+import { ArrowDown, ArrowUpRight, BookOpen, Menu, Trophy, X } from "lucide-react";
 import { CinematicCore } from "@/components/CinematicCore";
 import heroAsset from "@/assets/cosmic-astronaut.jpg.asset.json";
 
@@ -63,7 +63,7 @@ export function CosmicPortfolio(){
 
   <section id="work" className="work-scene"><div data-reveal><ChapterTitle number="02" label="SELECTED WORK" title="MADE TO MOVE IDEAS."/></div>
    <div className="projects">{projects.map(([n,type,title,copy,href],i)=><a key={title} href={href} target="_blank" rel="noreferrer" data-reveal style={{"--delay":`${i*80}ms`} as CSSProperties}><span className="project-no">{n}</span><div><small>{type}</small><h3>{title}</h3><p>{copy}</p></div><ArrowUpRight/></a>)}</div>
-   <div className="award" data-reveal><span className="award-number">01</span><div><p>National finalist / ILLUM 24</p><h3>A raw idea became a working answer for a real community problem.</h3><small>TEAM POWEROFGALAXY48 / CRESCENT PUBLIC SCHOOL</small></div></div>
+   <div className="award" data-reveal><div className="award-medal" aria-hidden="true"><Trophy/><span>AWARD</span><b>2024</b></div><div><p className="award-tag">★ Award / Recognition</p><h3>National Finalist<br/>ILLUM 24</h3><p className="award-copy">Selected among the top teams nationwide for PREL-48 — a raw idea turned into a working answer for a real community problem.</p><small>TEAM POWEROFGALAXY48 / CRESCENT PUBLIC SCHOOL</small></div></div>
   </section>
   <section className="words-scene"><div data-reveal><ChapterTitle number="03" label="WORDS" title="THOUGHTS THAT STAY."/></div><div className="quote-track">{quotes.map(([author,quote],i)=><blockquote key={author} className={i===2?"active":""} data-reveal style={{"--delay":`${i*90}ms`} as CSSProperties}><span>0{i+1}</span><p>{quote}</p><cite>{author}</cite></blockquote>)}</div></section>
 
