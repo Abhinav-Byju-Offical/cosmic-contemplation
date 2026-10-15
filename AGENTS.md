@@ -11,3 +11,4 @@
 
 - Keep the portfolio as a single cinematic scrolling route because its narrative depends on continuous chapter-to-chapter motion.
 - Keep immersive 3D as a procedural, client-rendered visual layer so the portfolio stays asset-independent and SSR-safe.
+- Keep the playground and tech journey in a separate portfolio section module; ephemeral games and visit-only checklist state stay in React so public visitors need no account or storage.
