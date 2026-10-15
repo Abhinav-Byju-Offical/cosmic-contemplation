@@ -1,6 +1,8 @@
 import { useEffect, useState, type CSSProperties } from "react";
 import { ArrowDown, ArrowUpRight, BookOpen, Menu, Trophy, X } from "lucide-react";
 import { CinematicCore } from "@/components/CinematicCore";
+import { PortfolioPlayground, TechJourney } from "@/components/PortfolioPlayground";
+import { Button } from "@/components/ui/button";
 import heroAsset from "@/assets/cosmic-astronaut.jpg.asset.json";
 
 const inquiries = [
@@ -59,7 +61,7 @@ export function CosmicPortfolio(){
   <div className={loaded?"preloader done":"preloader"} aria-hidden="true"><span className="pre-label">悟真 / Loading the journey</span><strong>{String(count).padStart(3,"0")}</strong><i style={{transform:`scaleX(${count/100})`}}/></div>
   <div className="cursor" aria-hidden="true"/><div className="cursor-dot" aria-hidden="true"/>
   <div className="journey-progress" aria-hidden="true"><i/></div>
-  <nav className="main-nav"><a href="#top" className="brand">AB/48</a><p>Independent researcher<br/>and digital maker</p><div className={menuOpen?"nav-links open":"nav-links"}><a href="#work" onClick={()=>setMenuOpen(false)}>Work</a><a href="#library" onClick={()=>setMenuOpen(false)}>Library</a><a href="#mind" onClick={()=>setMenuOpen(false)}>Mind</a></div><button className="menu-button" onClick={()=>setMenuOpen(v=>!v)} aria-label="Toggle menu">{menuOpen?<X/>:<Menu/>}</button></nav>
+  <nav className="main-nav" aria-label="Portfolio chapters"><a href="#top" className="brand">AB/48</a><p>Independent researcher<br/>and digital maker</p><div id="chapter-navigation" className={menuOpen?"nav-links open":"nav-links"}><a href="#work" onClick={()=>setMenuOpen(false)}>Work</a><a href="#library" onClick={()=>setMenuOpen(false)}>Library</a><a href="#mind" onClick={()=>setMenuOpen(false)}>Mind</a><a href="#playground" onClick={()=>setMenuOpen(false)}>Play</a><a href="#journey" onClick={()=>setMenuOpen(false)}>Journey</a></div><Button variant="ghost" size="icon" className="menu-button" onClick={()=>setMenuOpen(v=>!v)} aria-label="Toggle menu" aria-expanded={menuOpen} aria-controls="chapter-navigation">{menuOpen?<X/>:<Menu/>}</Button></nav>
 
   <section id="top" className="red-hero">
    <div className="dot-grid"/><CinematicCore/><div className="hero-meta"><span>Kerala, India</span><span>Portfolio / 2026</span></div>
@@ -93,6 +95,8 @@ export function CosmicPortfolio(){
    <div className="thought-signals">{interests.map((item,i)=><div key={item} style={{"--i":i} as CSSProperties}><span>{String(i+1).padStart(2,"0")}</span><p>{item}</p><i aria-hidden="true"/></div>)}</div>
    <p className="machine-caption">OBSERVATION → DOUBT → PATTERN → MAKING</p>
   </div></section>
+  <PortfolioPlayground/>
+  <TechJourney/>
   <footer className="finale"><p data-reveal>EVERY SEARCH<br/>CHANGES THE<br/><em>SEARCHER.</em></p><div><span>ABHINAV BYJU</span><span>KERALA / INDIA</span><a href="#top">BACK TO TOP <ArrowUpRight/></a></div></footer>
  </main>;
 }
