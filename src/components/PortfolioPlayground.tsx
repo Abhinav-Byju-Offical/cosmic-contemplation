@@ -84,6 +84,7 @@ function QuoteWidget() {
   const [index, setIndex] = useState(0);
   useEffect(() => { setIndex(Math.floor(Date.now() / 86400000) % quotations.length); }, []);
   const quote = quotations[index];
+  if (!quote) return null;
   return <article className="lab-widget quote-widget"><div className="widget-heading"><span><Lightbulb /> DAILY SPARK</span><small>03 / WORDS</small></div><div className="spark-symbol" aria-hidden="true">✳</div><div className="spark-quote" aria-live="polite"><blockquote key={index}>{quote.text}</blockquote><cite>{quote.author}</cite></div><Button variant="ghost" className="lab-command" onClick={() => setIndex(value => (value + 1 + Math.floor(Math.random() * (quotations.length - 1))) % quotations.length)}><Shuffle />Another perspective</Button></article>;
 }
 
