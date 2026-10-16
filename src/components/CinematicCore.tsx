@@ -1,6 +1,6 @@
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Environment, Float, Lightformer } from "@react-three/drei";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 
 const COLORS = { ink: "#080808", signal: "#d90808", paper: "#f2ede3", blood: "#5a0505" } as const;
@@ -8,7 +8,7 @@ const COLORS = { ink: "#080808", signal: "#d90808", paper: "#f2ede3", blood: "#5
 function ParticleField() {
   const pointsRef = useRef<THREE.Points>(null);
   const positions = useMemo(() => {
-    const values = new Float32Array(540);
+    const values = new Float32Array(360);
     for (let i = 0; i < values.length; i += 3) {
       const seed = i / 3 + 1;
       values[i] = Math.sin(seed * 71.3) * 9;
@@ -63,17 +63,24 @@ function OrbitalSculpture() {
 
   const rings: [number, number, number][] = [[Math.PI / 2, 0.2, 0], [0.72, 0.2, 0.72], [-0.62, 0.68, -0.35]];
   return <Float speed={0.65} rotationIntensity={0.12} floatIntensity={0.34}><group ref={groupRef} rotation={[0.08, -0.18, 0.12]}>
-    <mesh ref={coreRef} castShadow><icosahedronGeometry args={[2.05, 5]} /><meshStandardMaterial color={COLORS.ink} metalness={0.92} roughness={0.22} /></mesh>
+    <mesh ref={coreRef} castShadow><icosahedronGeometry args={[2.05, 3]} /><meshStandardMaterial color={COLORS.ink} metalness={0.92} roughness={0.22} /></mesh>
     <mesh scale={1.014}><icosahedronGeometry args={[2.05, 2]} /><meshBasicMaterial color={COLORS.signal} wireframe transparent opacity={0.17} /></mesh>
-    {rings.map((rotation, index) => <mesh key={index} rotation={rotation}><torusGeometry args={[2.85 + index * 0.34, 0.022 + index * 0.006, 12, 180]} /><meshStandardMaterial color={index === 1 ? COLORS.paper : COLORS.signal} emissive={index === 1 ? COLORS.paper : COLORS.blood} emissiveIntensity={index === 1 ? 0.32 : 0.8} metalness={0.82} roughness={0.28} /></mesh>)}
+    {rings.map((rotation, index) => <mesh key={index} rotation={rotation}><torusGeometry args={[2.85 + index * 0.34, 0.022 + index * 0.006, 8, 96]} /><meshStandardMaterial color={index === 1 ? COLORS.paper : COLORS.signal} emissive={index === 1 ? COLORS.paper : COLORS.blood} emissiveIntensity={index === 1 ? 0.32 : 0.8} metalness={0.82} roughness={0.28} /></mesh>)}
     <mesh position={[2.7, 1.1, 0.2]}><sphereGeometry args={[0.1, 16, 16]} /><meshBasicMaterial color={COLORS.paper} /></mesh>
   </group></Float>;
 }
 
 export function CinematicCore() {
-  return <div className="hero-webgl" aria-hidden="true"><Canvas dpr={[1, 1.5]} camera={{ position: [0, 0, 9.5], fov: 42 }} gl={{ antialias: true, alpha: true }}>
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(true);
+  useEffect(() => {
+    const el = ref.current; if (!el) return;
+    const io = new IntersectionObserver(([e]) => setVisible(e.isIntersecting));
+    io.observe(el); return () => io.disconnect();
+  }, []);
+  return <div ref={ref} className="hero-webgl" aria-hidden="true"><Canvas frameloop={visible ? "always" : "never"} dpr={[1, 1.25]} camera={{ position: [0, 0, 9.5], fov: 42 }} gl={{ antialias: false, alpha: true, powerPreference: "high-performance" }}>
     <ambientLight intensity={0.42} /><pointLight position={[-5, 4, 5]} color={COLORS.signal} intensity={36} distance={18} /><pointLight position={[4, -2, 4]} color={COLORS.paper} intensity={12} distance={14} />
     <ParticleField /><OrbitalSculpture />
-    <Environment resolution={64}><Lightformer intensity={2} color={COLORS.paper} position={[0, 5, 2]} scale={[6, 2, 1]} /><Lightformer intensity={3} color={COLORS.signal} position={[-4, 0, 1]} rotation-y={Math.PI / 2} scale={[5, 1, 1]} /></Environment>
+    <Environment resolution={32} frames={1}><Lightformer intensity={2} color={COLORS.paper} position={[0, 5, 2]} scale={[6, 2, 1]} /><Lightformer intensity={3} color={COLORS.signal} position={[-4, 0, 1]} rotation-y={Math.PI / 2} scale={[5, 1, 1]} /></Environment>
   </Canvas></div>;
 }

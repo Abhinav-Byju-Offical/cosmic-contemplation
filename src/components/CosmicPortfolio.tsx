@@ -39,9 +39,9 @@ export function CosmicPortfolio(){
  useEffect(()=>{
   let n=0;const tick=window.setInterval(()=>{n=Math.min(100,n+Math.ceil(Math.random()*9));setCount(n);if(n>=100){window.clearInterval(tick);window.setTimeout(()=>setLoaded(true),350)}},45);
   const cursor=document.querySelector<HTMLElement>(".cursor");const dot=document.querySelector<HTMLElement>(".cursor-dot");
-  let cx=0,cy=0,tx=0,ty=0,raf=0,lastY=window.scrollY,skew=0;
+  let cx=0,cy=0,tx=0,ty=0,raf=0,lastY=window.scrollY,skew=0,lastSkew="";
   const move=(e:PointerEvent)=>{tx=e.clientX;ty=e.clientY;if(dot)dot.style.transform=`translate(${tx}px,${ty}px)`;const t=e.target as HTMLElement;cursor?.classList.toggle("is-hover",!!t.closest("a,button"))};
-  const loop=()=>{cx+=(tx-cx)*.14;cy+=(ty-cy)*.14;if(cursor)cursor.style.transform=`translate(${cx}px,${cy}px)`;const y=window.scrollY;skew+=(Math.max(-8,Math.min(8,(y-lastY)*.25))-skew)*.12;lastY=y;document.documentElement.style.setProperty("--skew",`${skew.toFixed(2)}deg`);raf=requestAnimationFrame(loop)};
+  const loop=()=>{cx+=(tx-cx)*.14;cy+=(ty-cy)*.14;if(cursor)cursor.style.transform=`translate(${cx}px,${cy}px)`;const y=window.scrollY;skew+=(Math.max(-8,Math.min(8,(y-lastY)*.25))-skew)*.12;lastY=y;const sk=skew.toFixed(2);if(sk!==lastSkew){lastSkew=sk;document.documentElement.style.setProperty("--skew",`${sk}deg`)}if(Math.abs(tx-cx)<.1&&Math.abs(ty-cy)<.1&&sk==="0.00"&&y===lastY){}raf=requestAnimationFrame(loop)};
   window.addEventListener("pointermove",move,{passive:true});raf=requestAnimationFrame(loop);
   return()=>{window.clearInterval(tick);window.removeEventListener("pointermove",move);cancelAnimationFrame(raf)}
  },[]);
