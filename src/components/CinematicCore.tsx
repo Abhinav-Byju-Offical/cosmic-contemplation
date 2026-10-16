@@ -75,7 +75,7 @@ export function CinematicCore() {
   const [visible, setVisible] = useState(true);
   useEffect(() => {
     const el = ref.current; if (!el) return;
-    const io = new IntersectionObserver(([e]) => setVisible(e.isIntersecting));
+    const io = new IntersectionObserver(([e]) => setVisible(!!e?.isIntersecting));
     io.observe(el); return () => io.disconnect();
   }, []);
   return <div ref={ref} className="hero-webgl" aria-hidden="true"><Canvas frameloop={visible ? "always" : "never"} dpr={[1, 1.25]} camera={{ position: [0, 0, 9.5], fov: 42 }} gl={{ antialias: false, alpha: true, powerPreference: "high-performance" }}>
