@@ -12,4 +12,6 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  // Deploy target is Netlify. Lovable's sandbox still forces its own preset for previews.
+  nitro: { preset: "netlify" },
 });
