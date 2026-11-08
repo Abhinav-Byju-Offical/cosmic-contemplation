@@ -3,7 +3,7 @@ import { ArrowDown, ArrowUpRight, BookOpen, Menu, Trophy, X } from "lucide-react
 import { CinematicCore } from "@/components/CinematicCore";
 import { PortfolioPlayground, TechJourney } from "@/components/PortfolioPlayground";
 import { Button } from "@/components/ui/button";
-import heroAsset from "@/assets/cosmic-astronaut.jpg.asset.json";
+import heroAsset from "@/assets/cosmic-astronaut.jpg";
 
 const inquiries = [
 ["01","Quantum Physics","Where measurement quietly breaks intuition."],
@@ -72,7 +72,7 @@ export function CosmicPortfolio(){
   </section>
   <Marquee text="RESEARCHER — WEB DESIGNER — MAKER — READER"/>
 
-  <section id="prologue" className="astronaut-scene" style={{backgroundImage:`url(${heroAsset.url})`}}>
+  <section id="prologue" className="astronaut-scene" style={{backgroundImage:`url(${heroAsset})`}}>
    <div className="scene-shade"/><div className="scene-light"/><p className="vertical-note">RESEARCHER / DESIGNER / MAKER</p><div className="scene-number" data-reveal>序</div>
    <div className="scene-statement" data-reveal><span>BETWEEN THE</span><strong>MEASURABLE</strong><span>AND THE</span><strong>MYSTERIOUS.</strong></div>
    <p className="coordinates">09.9312 N / 76.2673 E</p>
