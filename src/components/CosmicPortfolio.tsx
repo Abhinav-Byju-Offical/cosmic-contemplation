@@ -69,7 +69,7 @@ export function CosmicPortfolio(){
    <p className="hero-copy">Researching the measurable.<br/><em>Building for the mysterious.</em></p>
    <div className="hero-actions">
     <a className="hero-cta" href="#prologue"><span>Enter the experience</span><ArrowDown/></a>
-    <Button asChild variant="ghost" className="hero-cta hero-cta-old"><a href="https://wuzhen48.netlify.app" target="_blank" rel="noopener noreferrer"><span>Original portfolio</span><ArrowUpRight/></a></Button>
+    <Button asChild variant="ghost" className="hero-cta hero-cta-old"><a href="https://wuzhen48.netlify.app" target="_blank" rel="noopener noreferrer"><span>Visit previous portfolio</span><ArrowUpRight/></a></Button>
    </div>
    <div className="scroll-mark"><i/><span>Scroll to begin</span><i/></div>
   </section>
