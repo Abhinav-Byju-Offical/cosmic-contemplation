@@ -6,12 +6,12 @@ import { Button } from "@/components/ui/button";
 import heroAsset from "@/assets/cosmic-astronaut.jpg";
 
 const inquiries = [
-["01","Quantum Physics","Where measurement quietly breaks intuition."],
-["02","Micro Plastics","Tracing invisible polymers through water, soil and bloodstreams."],
+["01","Human Consciousness","Energy, awareness and the medical frame around them."],
+["02","Quantum Physics","Where measurement quietly breaks intuition."],
 ["03","Non-verbal Psychology","The sentences bodies say out loud."],
 ["04","Systems & Agendas","How structures shape incentive, narrative and policy."],
 ["05","Global Institutions","Funding flows and the mechanics of influence."],
-["06","Human Consciousness","Energy, awareness and the medical frame around them."],
+["06","Micro Plastics","Tracing invisible polymers through water, soil and bloodstreams."],
 ] as const;
 const projects = [
 ["01","WEB DESIGN","Brilliant Driving Institute","A conversion-focused digital home for a local driving school.","https://brillaintdrivinginstitute.netlify.app/"],
@@ -86,7 +86,10 @@ export function CosmicPortfolio(){
   <Marquee text="SELECTED WORK — MADE TO MOVE IDEAS" alt/>
 
   <section id="work" className="work-scene"><div data-reveal><ChapterTitle number="02" label="SELECTED WORK" title="MADE TO MOVE IDEAS."/></div>
-   <div className="projects">{projects.map(([n,type,title,copy,href],i)=><a key={title} href={href} target="_blank" rel="noreferrer" data-reveal style={{"--delay":`${i*80}ms`} as CSSProperties}><span className="project-no">{n}</span><div><small>{type}</small><h3>{title}</h3><p>{copy}</p></div><ArrowUpRight/></a>)}</div>
+   <div className="projects">{projects.map(([n,type,title,copy,href],i)=>{
+    const details=<><span className="project-no">{n}</span><div><small>{type}</small><h3>{title}</h3><p>{copy}</p></div></>;
+    return href?<a key={title} href={href} target="_blank" rel="noreferrer" data-reveal style={{"--delay":`${i*80}ms`} as CSSProperties}>{details}<ArrowUpRight/></a>:<article key={title} className="project-in-progress" data-reveal style={{"--delay":`${i*80}ms`} as CSSProperties}>{details}<small className="project-status">In the making…</small></article>;
+   })}</div>
    <div className="award" data-reveal><div className="award-medal" aria-hidden="true"><Trophy/><span>AWARD</span><b>2024</b></div><div><p className="award-tag">★ Award / Recognition</p><h3>National Finalist<br/>ILLUM 24</h3><p className="award-copy">Selected among the top teams nationwide for PREL-48 — a raw idea turned into a working answer for a real community problem.</p><small>TEAM POWEROFGALAXY48 / CRESCENT PUBLIC SCHOOL</small></div></div>
   </section>
   <section className="words-scene"><div data-reveal><ChapterTitle number="03" label="WORDS" title="THOUGHTS THAT STAY."/></div><div className="quote-track">{quotes.map(([author,quote],i)=><blockquote key={author} className={i===2?"active":""} data-reveal style={{"--delay":`${i*90}ms`} as CSSProperties}><span>0{i+1}</span><p>{quote}</p><cite>{author}</cite></blockquote>)}</div></section>

@@ -5,3 +5,4 @@
 - [x] Verify interactions and layouts in the live portfolio.
 - [x] Improve the mobile hero so it no longer reads as a red rectangle, and bundle the missing image with the hosted site.
 - [x] Add an opening-screen button linking to the previous portfolio.
+- [x] Add PinKerala to Selected Work with its in-progress status and reorder Inquiry topics with Human Consciousness first and Micro Plastics last.
