@@ -17,6 +17,7 @@ const projects = [
 ["01","WEB DESIGN","Brilliant Driving Institute","A conversion-focused digital home for a local driving school.","https://brillaintdrivinginstitute.netlify.app/"],
 ["02","WEB DESIGN","Thaslim Kabeer","An author's website shaped by quiet typography and a book-first layout.","https://thaslimkabeer.netlify.app/"],
 ["03","HARDWARE PROTOTYPE","PREL-48","Plastic Redemption: Earth's Liberation - a working response to plastic waste.","https://www.youtube.com/watch?v=qmoXq_uKwno"],
+ ["04","STARTUP · IN PROGRESS","PinKerala","A peer-to-peer marketplace for authentic and pre-loved Kerala goods — listings, request boards, courier logistics and 7-day escrow. Currently 30% built.",""],
 ] as const;
 const quotes=[
 ["Friedrich Nietzsche","Whoever fights monsters should see to it that in the process he does not become a monster. And if you gaze long enough into an abyss, the abyss will gaze back into you."],
