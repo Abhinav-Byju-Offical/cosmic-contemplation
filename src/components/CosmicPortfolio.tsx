@@ -67,7 +67,10 @@ export function CosmicPortfolio(){
    <div className="dot-grid"/><CinematicCore/><div className="hero-meta"><span>Kerala, India</span><span>Portfolio / 2026</span></div>
    <h1 aria-label="Abhinav Byju"><span>{letters("ABHINAV",0)}</span><span>{letters("BYJU",4)}</span></h1>
    <p className="hero-copy">Researching the measurable.<br/><em>Building for the mysterious.</em></p>
-   <a className="hero-cta" href="#prologue"><span>Enter the experience</span><ArrowDown/></a>
+   <div className="hero-actions">
+    <a className="hero-cta" href="#prologue"><span>Enter the experience</span><ArrowDown/></a>
+    <Button asChild variant="ghost" className="hero-cta hero-cta-old"><a href="https://wuzhen48.netlify.app" target="_blank" rel="noopener noreferrer"><span>Original portfolio</span><ArrowUpRight/></a></Button>
+   </div>
    <div className="scroll-mark"><i/><span>Scroll to begin</span><i/></div>
   </section>
   <Marquee text="RESEARCHER — WEB DESIGNER — MAKER — READER"/>
