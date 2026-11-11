@@ -22,7 +22,8 @@ const projects = [
 const quotes=[
 ["Friedrich Nietzsche","Whoever fights monsters should see to it that in the process he does not become a monster. And if you gaze long enough into an abyss, the abyss will gaze back into you."],
 ["Marcus Aurelius","Everything we hear is an opinion, not a fact. Everything we see is a perspective, not the truth."],
-["Rumi - my deepest favourite","I searched for God and found only myself. I searched for myself and found only God."]
+["Rumi - my deepest favourite","I searched for God and found only myself. I searched for myself and found only God."],
+["◆ By Unknown Person from my dream","The universe answers other prayer through you, so be there"]
 ] as const;
 const books=["Ahlam","Animal Farm","1984","Meditations","Mastery","48 Laws of Power","Wings of Fire","Read People Like a Book","What Every Body Is Saying","Ikigai","Psychology of Money","Thajasiyaya Vhami","New World Order"];
 const interests=["Random research","Existentialism x Nihilism","Light Triad / Dark Triad","Frequencies and energy","Cyberdecks from scrap","Stories and poems"];
@@ -92,7 +93,7 @@ export function CosmicPortfolio(){
    })}</div>
    <div className="award" data-reveal><div className="award-medal" aria-hidden="true"><Trophy/><span>AWARD</span><b>2024</b></div><div><p className="award-tag">★ Award / Recognition</p><h3>National Finalist<br/>ILLUM 24</h3><p className="award-copy">Selected among the top teams nationwide for PREL-48 — a raw idea turned into a working answer for a real community problem.</p><small>TEAM POWEROFGALAXY48 / CRESCENT PUBLIC SCHOOL</small></div></div>
   </section>
-  <section className="words-scene"><div data-reveal><ChapterTitle number="03" label="WORDS" title="THOUGHTS THAT STAY."/></div><div className="quote-track">{quotes.map(([author,quote],i)=><blockquote key={author} className={i===2?"active":""} data-reveal style={{"--delay":`${i*90}ms`} as CSSProperties}><span>0{i+1}</span><p>{quote}</p><cite>{author}</cite></blockquote>)}</div></section>
+  <section className="words-scene"><div data-reveal><ChapterTitle number="03" label="WORDS" title="THOUGHTS THAT STAY."/></div><div className="quote-track">{quotes.map(([author,quote],i)=><blockquote key={author} className={i===3?"active":""} data-reveal style={{"--delay":`${i*90}ms`} as CSSProperties}><span>0{i+1}</span><p>{quote}</p><cite>{author}</cite></blockquote>)}</div></section>
 
   <section id="library" className="library-scene"><div className="archive-lines" aria-hidden="true"><i/><i/><i/><i/></div><div data-reveal><ChapterTitle number="04" label="LIBRARY" title="THIRTEEN DOORS."/></div><div className="archive-index"><span>PRIVATE ARCHIVE</span><span>VOL. 01—13</span><span>KERALA / 2026</span></div><p className="book-instruction" data-reveal><BookOpen/> Choose a spine</p><div className="books" data-reveal>{books.map((book,i)=><button key={book} className={activeBook===i?"active":""} onMouseEnter={()=>setActiveBook(i)} onFocus={()=>setActiveBook(i)} aria-label={`Select ${book}`}><span>{String(i+1).padStart(2,"0")}</span><b>{book}</b><i/></button>)}</div><div className="book-readout" data-reveal><span>{String(activeBook+1).padStart(2,"0")} / 13</span><h3>{books[activeBook]}</h3><p>{activeBook===0?"Thaslim Kabeer / Must read":activeBook===1?"George Orwell / Favourite":"A volume in the constellation"}</p></div></section>
   <section id="mind" className="mind-scene"><div data-reveal><ChapterTitle number="05" label="MIND" title="SIX SIGNALS, ONE CORE."/></div><div className="thought-machine" data-reveal>
